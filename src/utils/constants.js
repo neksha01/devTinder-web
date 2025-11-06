@@ -1,0 +1,1 @@
+export const BASE_UrL="http://localhost:7777/";
