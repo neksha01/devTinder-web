@@ -128,6 +128,7 @@ const EditProfile = ({ user }) => {
                     </ul>
                   </div>
                 </label>
+                <br/>
                 <label className="form-control w-full max-w-xs my-2">
                   <div className="label">
                     <span className="label-text">Skills</span>
