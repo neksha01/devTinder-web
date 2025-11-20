@@ -1,0 +1,69 @@
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { BASE_UrL } from '../utils/constants';
+import axios from 'axios';
+import { addRequest } from '../utils/requestSlice';
+
+const Request = () => {
+  const requests=useSelector(store=>store.request);
+  console.log(requests);
+  
+  const dispatch=useDispatch();
+
+  const fetchRequests=async()=>{
+    try{
+      const requests=await axios.get(BASE_UrL+"user/requests/received",{withCredentials:true});    
+      dispatch(addRequest(requests.data.data));
+    }catch(err){
+      console.log(err.message); 
+    }
+  }
+  
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  if(!requests)return;
+  if(requests.length===0)
+    return(
+  <>
+  <h1 className="text-center text-2xl my-10 text-green-300">
+    No Requests Found
+    </h1>
+  </>
+  )
+
+  return (
+    <div className='text-center my-10 '>
+     <h1 className='font-bold text-3xl text-pink-300'>Connection Requests ({requests.length})</h1>
+    {
+      requests.map((request)=>{
+        const{_id,firstName,lastName,photoURL, age, gender, about}=request.fromUserId;
+        return(
+          <div key={_id} className='flex justify-between items-center m-2 p-2 rounded-lg bg-base-300 w-1/2 mx-auto'>
+            <div>
+              <img
+              alt="photo"
+              src={photoURL}
+              className='w-20 h-20 rounded-full object-contain'/>              
+            </div>
+            <div className='text-left m-4 p-4'>
+              <h2 className='font-bold text-xl'>{firstName+" "+lastName}</h2>
+               {age && gender && <p>{age + " " + gender}</p>}
+              <p>{about}</p>
+            </div>
+            <div>
+              <button className="btn btn-primary mx-2 my-2">Accept</button>
+              <button className="btn btn-secondary mx-2 my-2">Reject</button>
+            </div>
+          </div>
+        )
+      })
+    }
+
+    </div>
+  )
+}
+
+export default Request
