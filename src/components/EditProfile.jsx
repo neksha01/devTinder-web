@@ -10,8 +10,8 @@ const EditProfile = ({ user }) => {
   const [lastName, setLastName] = useState(user.lastName);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [age, setAge] = useState(user.age || "");
-  const [gender, setGender] = useState(user.gender);
-  const [about, setAbout] = useState(user.about);
+  const [gender, setGender] = useState(user.gender||"");
+  const [about, setAbout] = useState(user.about||"");
   const [skills, setSkills] = useState(user.skills || []);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
@@ -50,7 +50,7 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className="flex justify-center  my-10 max ">
+      <div className="flex justify-center  my-10 max pb-20">
         <div className="flex justify-center mx-10 ">
           <div className="card bg-base-300 w-96 shadow-xl">
             <div className="card-body">

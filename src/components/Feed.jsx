@@ -24,10 +24,22 @@ dispatch(addfeed(res?.data));
  useEffect(()=>{
   getFeed();
 },[])
+
+  if (!feed) return;
+
+  if (feed.length <= 0)
+    return (
+      <h1 className=" flex justify-center m-52 text-3xl">No more users!!!!</h1>
+    );
   return  (
    
- feed && ( <div className='flex justify-center my-4'>
-   <UserCard user={feed[0]}/>
+ feed && ( <div className='flex flex-wrap justify-around gap-2.5 my-4 mx-4 pb-20 pt-16'>
+  {
+    feed.map((user)=>(
+ <UserCard key={user._id} user={user}/>
+    ))
+  }
+  
    </div>)
   )
 }
